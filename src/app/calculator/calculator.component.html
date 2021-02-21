@@ -1,0 +1,44 @@
+
+<div>
+    <table>
+        <thead>
+            <th>Product Name</th>
+            <th>Available Unit Count</th>
+            <th>Add Unit count</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product.name }}</td>
+                <td>{{ product.qty }}</td>
+                <td>
+                  <input type="number" [(ngModel)] = "product.requestQty" placeholder="Add Qty"/>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td ><button (click) = calulateTotal()>Calculate</button></td>
+            </tr>
+          </tbody>
+    </table>
+    <br>
+
+    <!--Resutl table-->
+    <table *ngIf="calculatedProductDto.productDto">
+        <thead>
+            <th>Product Name</th>
+            <th>Requested Qty</th>
+            <th>Error</th>
+        </thead>
+        <tr *ngFor="let product of calculatedProductDto.productDto">
+            <td>{{product.name}}</td>
+            <td>{{product.requestQty}}</td>
+            <td *ngIf="product.message" style="color: red;">{{product.message}}</td>
+        </tr>
+    </table>    
+    <!--End of the result table-->
+    <!--total-->
+    <h4 *ngIf="calculatedProductDto.productDto">Toal Price(Error free items only): {{calculatedProductDto.total}}</h4>
+    <br>
+    <button (click) = goToPriceList()>View Price List</button>
+</div>
